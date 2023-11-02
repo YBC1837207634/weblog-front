@@ -1,0 +1,110 @@
+html, body {
+    width: 100%;
+    height: 100%;
+  }
+
+body {
+  background: #f7f8f9;
+}
+
+.arco-comment  .arco-comment-content {
+  margin: 5px 0 !important;
+}
+
+.arco-comment-inner > .arco-comment-inner-comment {
+  margin-top: 10px;
+}
+
+.arco-comment-inner > .arco-comment-inner-comment > .arco-comment {
+  margin-top: 8px;
+}
+
+.arco-list-item.list-demo-item .arco-list-item-meta-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* markdown */
+.scroll-style.scroll-style-border-radius.v-show-content {
+  padding: 8px 10px !important;
+}
+
+
+/* dialog */
+.arco-modal-container{
+  z-index: 10008 !important;
+}
+
+.arco-skeleton.arco-skeleton-animation {
+  padding: 0 !important;
+}
+
+/* 列表图片 */
+/* .arco-list-item-extra {
+  width: 173px ;
+} */
+/* 
+.arco-list-item.list-demo-item {
+  height: 140px !important;
+  overflow: auto !important;
+} */
+
+.arco-list-item.list-demo-item {
+  align-items: center;
+}
+
+.arco-list-item-meta-description {
+  width: 600px;
+}
+
+
+
+/*  抽屉 */
+@media (max-width: 768px) {
+  html, body {
+    width: 100vw !important;
+  }
+  #app {
+    width: 100vw !important;
+  }
+
+  .arco-drawer {
+    width: 100vw !important;
+  }
+
+  /* dialog */
+  .arco-modal {
+    width: 80vw;
+  }
+  /* 列表 */
+  /* .arco-list-item-extra {
+    width: 40vw !important;
+  }
+*/
+  .arco-list-item-meta-description {
+      width: 160px;
+  }
+
+  .arco-list-item.list-demo-item {
+    /* height: 132px !important; */
+    overflow: auto !important;
+} 
+
+  .arco-list-item-extra {
+    width: 150px !important;
+  }
+
+}
+
+
+/* card */
+
+.arco-card-body {
+  padding: 10px !important;
+}
+
+
+/*  触发器 */
+.arco-trigger-popup.arco-trigger-position-top {
+  z-index: 10010 !important;
+}
