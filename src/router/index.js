@@ -7,12 +7,12 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('../layout/index.vue'),
-      meta: {},
+      meta: {title: '首页'},
       children: [
         {
           path: '',
           name: 'home',
-          meta: {},
+          meta: {title: '首页'},
           component: () => import('../views/home/index.vue'),
         },
         {
@@ -22,14 +22,19 @@ const router = createRouter({
         },
         {
           path: 'user/:id',
-          name: 'user',
           meta: {auth: true},
           component: () => import('../views/user/index.vue'),
           children: [
             {
+                path: '',
+                name: 'userDefault',
+                meta: {auth: true},
+                component: () => import('@/views/user/articlelist/index.vue')
+            },
+            {
               path: 'article',
               name: 'articleList',
-              meta: { auth: true},
+              meta: { auth: true, title: '文章列表'},
               component: () => import('@/views/user/articlelist/index.vue')
             }, 
             {
@@ -41,7 +46,7 @@ const router = createRouter({
             {
               path: 'cllect',
               name: 'cllectList',
-              meta: { auth: true},
+              meta: { auth: true, title: '收藏列表'},
               component: () => import('@/views/user/cllectlist/index.vue')
             }
 
@@ -50,7 +55,7 @@ const router = createRouter({
         {
           path: 'user/setting',
           name: 'setting',
-          meta: {auth: true},
+          meta: {auth: true, title: '设置'},
           component: () => import('@/views/user/setting/index.vue')
         }
       ]
@@ -58,23 +63,25 @@ const router = createRouter({
     {
       path: '/article/add',
       name: 'editAdd',
-      meta: {auth: true},
+      meta: {auth: true, title: '文章发布'},
       component: () => import('../views/edit/index.vue'),
     },
     {
       path: '/edit/:id',
       name: 'editArt',
-      meta: {auth: true},
+      meta: {auth: true, title: '修改文章'},
       component: () => import('../views/edit/index.vue')
     },
     {
       path: '/login',
       name: 'login',
+      meta: {title: '登录'},
       component: () => import('@/views/login/index.vue')
     },
     {
       path: '/404',
       name: 'notFund',
+      meta: {title: '404'},
       component: () => import('@/views/error/404.vue')
     },
     {
@@ -87,6 +94,9 @@ const router = createRouter({
 
 // 全局前置路由守卫
 router.beforeEach((to, from, next)=>{
+  if (to.meta.title != null && to.meta.title) {
+    document.title = to.meta.title
+  }
   if (getToken() && to.name === 'login') {
     next({replace: true, name: 'home'})
   } else if (to.meta.auth != null && to.meta.auth === true) {

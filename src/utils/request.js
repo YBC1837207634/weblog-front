@@ -20,6 +20,7 @@ export default (function() {
   })
 
   req.interceptors.response.use((res) => {
+
     const userStore = useUserStore()
       if (res.status != 200) {
         Message.error("error")
@@ -38,12 +39,11 @@ export default (function() {
             router.replace('/')
             // '令牌失效，请重新登录！'
           }
-      } else if (state === 406){
-        router.replace({name:'home'})
       } else {
         Message.error(msg)
-        return Promise.reject(res)
+        return Promise.reject(msg)
       }
+      
   })
   
   return req

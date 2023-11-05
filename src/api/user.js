@@ -32,6 +32,16 @@ export function userInfo() {
 
 
 // 用户信息
+export function getUser(id) {
+    return request.request({
+        method: 'get',
+        url: `/user/vo/${id}`,
+        isToken:true,
+    })
+}
+
+
+// 用户信息
 export function updateUser(data) {
     return request.request({
         method: 'put',

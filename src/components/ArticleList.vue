@@ -16,7 +16,7 @@
                     </template>
                 </a-list-item-meta>
                 <template #actions>
-                    <span style=" font-weight: 600;">{{ item.author.nickname }}</span>
+                    <span style=" font-weight: 600;" v-if="author">{{ item.author.nickname }}</span>
                     <span><icon-eye />{{ item.viewCounts }}</span>
                     <span><icon-thumb-up />{{ item.likeCount }}</span>
                     <span><icon-star />{{ item.collectCount }}</span>
@@ -45,6 +45,10 @@
 import setting from '@/config/setting';
 const props = defineProps({
    dataSource: Array,
+   author: {
+    type: Boolean,
+    default: true
+   }
 });
 
 
@@ -77,6 +81,7 @@ function clickHandler(id) {
 
 .article-summary {
         overflow-wrap: break-word;
+        width: 100%;
 }
 
 .image-area-phone {

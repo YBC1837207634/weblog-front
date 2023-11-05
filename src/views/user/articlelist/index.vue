@@ -1,19 +1,18 @@
 <template>
     <div v-infinite-scroll="loadMore">
-        <div class="setting-collapse">
-        <a-collapse accordion>
-            <a-collapse-item header="文章设置" key="1">
-                <div>编辑模式：<a-switch  v-model="edit" /></div>
-            </a-collapse-item>
-        </a-collapse>
-    </div>
+        <div class="setting-collapse" v-if="$route.params.id === getUid() && userStore.id === getUid()">
+            <a-collapse accordion>
+                <a-collapse-item header="文章设置" key="1">
+                    <div>编辑模式：<a-switch  v-model="edit" /></div>
+                </a-collapse-item>
+            </a-collapse>
+        </div>
     <div >
-        <ArticleList v-if="!edit" :dataSource="dataSource"></ArticleList>
+        <ArticleList v-if="!edit" :author="false" :dataSource="dataSource"></ArticleList>
         <EditArticleList v-else @del="removeHandler"  @editArticle="editHandler"  :dataSource="dataSource"></EditArticleList>
     </div>
-        <div v-if="bottom" style="text-align: center; padding: 10px;">到达底部</div>
+        <div v-if="bottom" style="text-align: center; padding: 10px; border-top: 1px solid rgba(0,0,0,.06);">到达底部</div>
     </div>
-
 </template>
 
 <script setup>
@@ -24,7 +23,14 @@ import ArticleList from '@/components/ArticleList.vue'
 import EditArticleList from '@/components/EditArticleList.vue';
 import { Message } from '@arco-design/web-vue';
 import { useRouter } from 'vue-router';
+import { getUid } from '@/utils/auth';
+import { useUserStore } from '@/stores/user';
 
+defineOptions({
+    name: 'ArticleList'
+})
+
+const userStore = useUserStore()
 
 const route = useRoute()
 const router = useRouter()
@@ -44,12 +50,12 @@ let params = {
 
 function reset() {
     params = {
-    pageNum: 1,
-    pageSize: 20,
-    sort: 'desc',
-    sortField: 'createTime',
-    authorId: route.params.id
-}
+        pageNum: 1,
+        pageSize: 20,
+        sort: 'desc',
+        sortField: 'createTime',
+        authorId: route.params.id
+    }
 }
 
 function loadMore() {
@@ -87,7 +93,6 @@ function removeHandler(ids) {
 }
 
 function editHandler(id) {
-    // console.log(id);
     router.push({name:'editArt', params: {id}})
 }
 

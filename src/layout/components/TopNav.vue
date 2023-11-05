@@ -2,7 +2,7 @@
     <div class="top-nav">
         <div class="top-nav-container ">
             <div class="logo">
-                logo
+                weblog
             </div>
             <div class="items">
                 <div class="top-menu">
@@ -18,6 +18,14 @@
                 <div class="right-items">
                     <div class="search">
                         <a-input-search placeholder="搜索文章" size="medium" search-button />
+                    </div>
+                    <div class="btn">
+                        <a-button type="primary" @click="$router.push({name:'editAdd'})">
+                            <template #icon>
+                                <icon-plus />
+                            </template>
+                                发布文章
+                        </a-button>
                     </div>
                     <div class="message-item">
                         <icon-notification style="font-size: 16px;" />
@@ -85,7 +93,8 @@ function go(route) {
 }
 
 function userSpace() {
-    router.push({ name: 'user', params: { id: userStore.getUser.id } })
+    router.push({ name: 'userDefault', params: { id: userStore.getUser.id } })
+    // location.reload()
 }
 
 </script>

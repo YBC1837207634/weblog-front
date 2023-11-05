@@ -22,7 +22,7 @@
                     </template>
                 </a-list-item-meta>
                 <template #actions>
-                    <icon-edit @click="$emit('editArticle', item.id)" style="font-size: 18px;"/>
+                    <icon-edit v-if="needEdit" @click="$emit('editArticle', item.id)" style="font-size: 18px;"/>
                     <a-popconfirm content="确认删除？" type="warning" @ok="okHandler(item.id)">
                         <icon-delete style="font-size: 18px; "/>
                     </a-popconfirm>
@@ -56,6 +56,16 @@
                             <a-tag style="margin-right: 5px;" color="arcoblue" v-for="tag in currentArticle.tags" :key="tag.id">{{ tag.tagName }}</a-tag>
                         </a-list-item>
                     </a-list>
+                    </a-card>
+                </div>
+                <div class="title">
+                    <a-card  >
+                        <div class="author-info-box" v-if="currentArticle.author">
+                            <div class="author">{{ currentArticle.author.nickname }}</div>
+                            <div class="category">类别：{{ currentArticle.category }}</div>
+                            <div class="time">{{ currentArticle.createTime }}</div>
+                            <div class="lookCount"><icon-eye />{{ currentArticle.viewCounts }}</div>
+                        </div>
                     </a-card>
                 </div>
                 <div class="title">
@@ -100,6 +110,10 @@ import { ref } from 'vue';
 
 const props = defineProps({
     dataSource: Array,
+    needEdit: {
+        type: Boolean,
+        default: true
+    }
 });
 
 const emits = defineEmits(['del','editArticle'])
@@ -166,7 +180,28 @@ function batchDelHandler() {
     width: 154px; */
     overflow-wrap: break-word;
 }
+.author-info-box {
+    height: 24px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,.06);
+    padding: 10px 0;
+}
+.author-info-box > * {
+    margin-left: 24px;
+}
 
+.author-info-box > :first-child {
+    margin-left: 10px;
+}
+
+.author-info-box > .author  {
+    font-weight: bolder;
+}
+.author-info-box > .info  {
+    display: none;
+}
 .drawer-item-category {
     width: 100%;
 }
@@ -174,5 +209,6 @@ function batchDelHandler() {
     .drawer-item-category {
         width: 280px;
     }
+    
 }
 </style>

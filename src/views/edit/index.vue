@@ -3,9 +3,10 @@
     <div class="title">
       <input  placeholder="输入文章标题..." spellcheck="false" maxlength="80" v-model="form.title" v-if="!preview">
       <h1 v-else>{{ form.title }}</h1>
+
         <!-- <a-button type="primary" size="large" shape="round" v-if="form.content != '' && form.title != ''"  @click="preview = !preview">{{ preview ? '编辑' : '预览' }}</a-button> -->
-          <a-dropdown-button 
-            style="margin-left: auto;" 
+      <div class="btn">
+        <a-dropdown-button 
             @click="preview = !preview" 
             v-if="form.content != '' && form.title != ''"
             >
@@ -30,6 +31,7 @@
               <a-doption @click="$router.back()">返回</a-doption>
             </template>
         </a-dropdown-button>
+      </div>
     </div>
     
     <mavon-editor 
@@ -37,6 +39,8 @@
       :subfield="!preview"
       :editable="!preview"
       :toolbarsFlag="!preview"
+      @imgAdd="imgAdd"
+      ref="md"
       @save="save" />
   </div>
 
@@ -61,7 +65,7 @@
         <a-form-item 
           field="summary" 
           label="概要"
-          :rules="[{required:true,message:'摘要不为空'},{minLength:5,message:'不小于5个字符'}]"
+          :rules="[{required:true,message:'摘要不为空'},{minLength:1,message:'不小于1个字符'}]"
         >
         <a-textarea v-model="form.summary" placeholder="编辑摘要..." :max-length="255" allow-clear show-word-limit />
       </a-form-item>
@@ -138,6 +142,9 @@ import { getUid } from '@/utils/auth'
 
 const route = useRoute()
 const router = useRouter()
+
+// 富文本组件
+const md = ref(null)
 
 let visible = ref(false);
 let form = ref({})
@@ -273,6 +280,7 @@ function dropdownMultipleHandler() {
   }
 }
 
+
 function customRequest(option) {
     let { fileItem } = option
     let file = fileItem.file
@@ -291,8 +299,27 @@ function customRequest(option) {
     upload(formData).then(res => {
       form.value.img = imgUrl.value = res.msg
     }).catch(r=>r)
-
 }
+
+// 富文本编辑器图片上传
+function imgAdd(pos, file) {
+    const typeList = ['image/png', 'image/jpeg','image/gif']
+    const isLt2M = file.size / 1024 / 1024 < 5;
+    if (!typeList.includes(file.type)) {
+        Message.error('只可以上传图片');
+        return 
+    }
+    if (!isLt2M) {
+        Message.error('上传头像图片大小不能超过 5MB!');
+        return 
+    }
+    let formData = new FormData()
+    formData.append('file',file)
+    upload(formData).then(res => {
+      md.value.$img2Url(pos, setting.baseUrl + res.msg)
+    }).catch(r=>r)
+}
+
 
 </script>
 
@@ -321,7 +348,7 @@ function customRequest(option) {
 .title > input {
   margin: 0;
   padding: 0;
-  width: 250px;
+  width: 500px;
   font-size: 24px;
   font-weight: 500;
   color: #1d2129;
@@ -329,6 +356,9 @@ function customRequest(option) {
   outline: none;
 }
 
+.title > .btn {
+  margin-left: auto;
+}
 .drawer {
   padding: 30px 0;
   padding-right: 60px;

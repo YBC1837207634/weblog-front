@@ -53,10 +53,10 @@ body {
   align-items: center;
 }
 
-.arco-list-item-meta-description {
+/* .arco-list-item-meta-description {
   width: 600px;
 }
-
+ */
 
 
 /*  抽屉 */
@@ -82,7 +82,7 @@ body {
   }
 */
   .arco-list-item-meta-description {
-      width: 160px;
+      width: 100%;
   }
 
   .arco-list-item.list-demo-item {
@@ -90,10 +90,12 @@ body {
     overflow: auto !important;
 } 
 
-  .arco-list-item-extra {
+  /* .arco-list-item-extra {
     width: 150px !important;
+  } */
+  .arco-list-item-extra {
+    width: 100% !important;
   }
-
 }
 
 
@@ -107,4 +109,27 @@ body {
 /*  触发器 */
 .arco-trigger-popup.arco-trigger-position-top {
   z-index: 10010 !important;
+}
+
+
+
+
+
+.markdown-body div.hljs {
+  background: none;
+}
+
+/* 表情包 */
+.pollup {
+  z-index: 1888 !important;
+}
+
+
+/* 折叠菜单 */
+.arco-collapse-item-content {
+  background-color: #fff !important;
+  padding-right: 0%;
+  padding-left: 0px;
+  padding-left: 10px;
+  padding-right: 10px;
 }

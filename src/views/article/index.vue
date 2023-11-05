@@ -24,6 +24,9 @@
                     :toolbarsFlag="false"
                     v-model="articleContent.content.content"
                 />
+                <div v-if="articleContent.author">
+                    <SuspendedPanel v-if="articleContent.author.id !== getUid()"></SuspendedPanel>
+                </div>
             </div>
                 <!-- 评论 -->
                 <div class="comment">
@@ -179,7 +182,13 @@
             :footer="false"
             unmountOnClose
         >
+            
             <div class="drawer-card">
+                <div class="panel">
+                <div v-if="articleContent.author">
+                    <SuspendedPanel v-if="articleContent.author.id !== getUid()"></SuspendedPanel>
+                </div>
+            </div>
                 <div class="item1">
                     <!-- 角色卡片 -->
                     <UserCard v-if="articleContent.author" title="作者信息" :userInfo="articleContent.author"></UserCard>
@@ -197,7 +206,6 @@
                     </a-list>
                     </a-card>
                 </div>
-                
             </div>
         </a-drawer>
     </div>
@@ -205,16 +213,16 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import UserCard from '@/components/UserCard.vue';
-import ReplyInput from './components/ReplyInput.vue'
 import { Message } from '@arco-design/web-vue'
 import { useRoute, useRouter } from 'vue-router';
-import { getToken } from '@/utils/auth';
+import { getToken, getUid } from '@/utils/auth';
 import { getArticleContent } from '@/api/article'
 import { getComment, push } from '@/api/comment'
 import { useUserStore } from '@/stores/user';
 import setting from '@/config/setting';
-
+import UserCard from '@/components/UserCard.vue';
+import ReplyInput from './components/ReplyInput.vue'
+import SuspendedPanel from './components/SuspendedPanel.vue';
 
 let route = useRoute()
 let router = useRouter()
@@ -247,6 +255,7 @@ onMounted(() => {
     getArticleContent(route.params.id)
         .then((res) => {
             articleContent.value = res.data
+            document.title = articleContent.value.title
         }).catch(e=>router.replace('/'))
     if (getToken()) {
         getList()
@@ -333,6 +342,7 @@ function relpy(content, scope) {
     push({...scope, content}).then((res=>{
         if (res.code === 200) {
             Message.success(res.msg)
+            articleContent.value.commentCounts = String(Number(articleContent.value.commentCounts) + 1)
             getList()
         }
     }))
@@ -342,6 +352,7 @@ function commentHandler() {
     relpy(commentText.value, {articleId: route.params.id, commentType: '1'})
     commentText.value = ''
 }
+
 
 </script>
 
@@ -373,6 +384,7 @@ function commentHandler() {
     height: 24px;
     font-size: 12px;
     display: flex;
+    align-items: center;
     border-bottom: 1px solid rgba(0,0,0,.06);
     padding: 10px 0;
 }
@@ -458,7 +470,8 @@ function commentHandler() {
 }
 .comment > .comment-text {
     padding-top: 20px;
-    text-align: right;
+    text-align: left;
+    /* text-align: right; */
 }
 
 .action {
@@ -497,12 +510,22 @@ function commentHandler() {
     width: 320px;
 }
 
-
 .right-card > div {
     margin-bottom: 10px;
 }
 
+.panel {
+    display: none;
+}
+
 @media (max-width: 768px) {
+    .author-info-box > * {
+        margin-left: 15px;
+    }
+
+    .panel {
+        display: block;
+    }
     /* 抽屉 */
 
     .author-info-box > .info  {
@@ -534,5 +557,6 @@ function commentHandler() {
         z-index: 1001;
     }
 }
+
 
 </style>
