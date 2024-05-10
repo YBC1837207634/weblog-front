@@ -1,24 +1,23 @@
 export function getToken() {
-    return localStorage.getItem('token')
+  return localStorage.getItem('token')
 }
 
 export function setToken(token) {
-    localStorage.setItem('token',token)
+  localStorage.setItem('token', token)
 }
 
 export function removeToken() {
-    localStorage.removeItem('token')
+  localStorage.removeItem('token')
 }
 
-
 export function getUid() {
-    return localStorage.getItem('uid')
+  return localStorage.getItem('uid')
 }
 
 export function setUid(uid) {
-    localStorage.setItem('uid', uid)
+  localStorage.setItem('uid', uid)
 }
 
 export function removeUid() {
-    localStorage.removeItem('uid')
+  localStorage.removeItem('uid')
 }

@@ -1,13 +1,14 @@
-html, body {
-    width: 100%;
-    height: 100%;
-  }
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
 
 body {
   background: #f7f8f9;
 }
 
-.arco-comment  .arco-comment-content {
+.arco-comment .arco-comment-content {
   margin: 5px 0 !important;
 }
 
@@ -29,9 +30,8 @@ body {
   padding: 8px 10px !important;
 }
 
-
 /* dialog */
-.arco-modal-container{
+.arco-modal-container {
   z-index: 10008 !important;
 }
 
@@ -58,10 +58,10 @@ body {
 }
  */
 
-
 /*  抽屉 */
 @media (max-width: 768px) {
-  html, body {
+  html,
+  body {
     width: 100vw !important;
   }
   #app {
@@ -82,13 +82,13 @@ body {
   }
 */
   .arco-list-item-meta-description {
-      width: 100%;
+    width: 100%;
   }
 
   .arco-list-item.list-demo-item {
     /* height: 132px !important; */
     overflow: auto !important;
-} 
+  }
 
   /* .arco-list-item-extra {
     width: 150px !important;
@@ -98,22 +98,16 @@ body {
   }
 }
 
-
 /* card */
 
 .arco-card-body {
   padding: 10px !important;
 }
 
-
 /*  触发器 */
 .arco-trigger-popup.arco-trigger-position-top {
   z-index: 10010 !important;
 }
-
-
-
-
 
 .markdown-body div.hljs {
   background: none;
@@ -124,7 +118,6 @@ body {
   z-index: 1888 !important;
 }
 
-
 /* 折叠菜单 */
 .arco-collapse-item-content {
   background-color: #fff !important;
@@ -132,4 +125,9 @@ body {
   padding-left: 0px;
   padding-left: 10px;
   padding-right: 10px;
+}
+
+/* a-image */
+.arco-image-img {
+  object-fit: cover;
 }

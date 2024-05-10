@@ -1,13 +1,13 @@
 body {
-    font-family: arial, helvetica, sans-serif;
-    font-size: 13px;
-    font-size-adjust: none;
-    font-stretch: normal;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
-    line-height: 1.4;
-    /* text-align: center; */
+  font-family: arial, helvetica, sans-serif;
+  font-size: 13px;
+  font-size-adjust: none;
+  font-stretch: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1.4;
+  /* text-align: center; */
 }
 
 body,
@@ -31,29 +31,28 @@ select,
 button,
 th,
 td {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
-
 table {
-    font-size: inherit;
+  font-size: inherit;
 }
 
 input,
 select {
-    font-family: arial, helvetica, clean, sans-serif;
-    font-size: 100%;
-    font-size-adjust: none;
-    font-stretch: normal;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
-    line-height: normal;
+  font-family: arial, helvetica, clean, sans-serif;
+  font-size: 100%;
+  font-size-adjust: none;
+  font-stretch: normal;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: normal;
 }
 
 button {
-    overflow: visible;
+  overflow: visible;
 }
 
 th,
@@ -62,21 +61,21 @@ strong,
 b,
 address,
 cite {
-    font-style: normal;
-    font-weight: normal;
+  font-style: normal;
+  font-weight: normal;
 }
 
 li {
-    list-style-image: none;
-    list-style-position: outside;
-    list-style-type: none;
+  list-style-image: none;
+  list-style-position: outside;
+  list-style-type: none;
 }
 
 img,
 fieldset {
-    border: 0 none;
+  border: 0 none;
 }
 
 ins {
-    text-decoration: none;
+  text-decoration: none;
 }
